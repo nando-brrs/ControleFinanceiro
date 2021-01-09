@@ -1,8 +1,6 @@
 ﻿using ControleFinanceiro.Business.Models;
+using ControleFinanceiro.Business.Repository;
 using ControleFinanceiro.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ControleFinanceiro.Data.Repository
 {
