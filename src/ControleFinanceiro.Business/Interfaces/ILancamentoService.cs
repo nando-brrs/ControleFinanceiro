@@ -6,8 +6,8 @@ namespace ControleFinanceiro.Business.Interfaces
 {
     public interface ILancamentoService
     {
-        Task Add(Lancamento lancamento);
-        Task Update(Lancamento lancamento);
-        Task Remove(Lancamento lancamento);
+        Task<bool> Add(Lancamento lancamento);
+        Task<bool> Update(Lancamento lancamento);
+        Task<bool> Remove(Guid id);
     }
 }

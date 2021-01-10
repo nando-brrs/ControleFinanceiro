@@ -26,15 +26,18 @@ namespace ControleFinanceiro.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(500)");
 
-            builder.HasOne(s => s.SubCategoria)
-                .WithMany(c => c.Lancamentos)
-                .HasForeignKey(s => s.IdSubCategoria);
+            builder.Property(p => p.TipoLancamento)
+                .HasColumnName("ID_TIPOLANCAMENTO");
+
+            builder.HasOne(p => p.SubCategoria)
+                .WithMany(s => s.Lancamentos)
+                .HasForeignKey(l => l.Id_SubCategoria);
 
             builder.HasOne(s => s.Usuario)
                 .WithMany(c => c.Lancamentos)
-                .HasForeignKey(s => s.IdUsuario);
+                .HasForeignKey(s => s.Id_Usuario);
 
-            builder.ToTable("SUBCATEGORIAS");
+            builder.ToTable("LANCAMENTOS");
         }
     }
 }

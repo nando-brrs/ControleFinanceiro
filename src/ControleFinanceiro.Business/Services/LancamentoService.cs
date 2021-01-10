@@ -16,24 +16,33 @@ namespace ControleFinanceiro.Business.Services
             _lancamentoRepository = lancamentoRepository;
         }
 
-        public async Task Add(Lancamento lancamento)
+        public async Task<bool> Add(Lancamento lancamento)
         {
-            if (!ExecutarValidacao(new LancamentoValidation(), lancamento)) return;
+            if (!ExecutarValidacao(new LancamentoValidation(), lancamento)) return false;
 
             await _lancamentoRepository.Add(lancamento);
 
+            return true;
         }
 
-        public async Task Update(Lancamento lancamento)
+        public async Task<bool> Update(Lancamento lancamento)
         {
-            if (!ExecutarValidacao(new LancamentoValidation(), lancamento)) return;
+            if (!ExecutarValidacao(new LancamentoValidation(), lancamento)) return false;
 
             await _lancamentoRepository.Update(lancamento);
+
+            return true;
         }
 
-        public async Task Remove(Lancamento lancamento)
+        public async Task<bool> Remove(Guid id)
         {
+            var lancamento = await _lancamentoRepository.GetById(id);
+
+            if (lancamento == null) return false;
+
             await _lancamentoRepository.Remove(lancamento);
+
+            return true;
         }
     }
 }

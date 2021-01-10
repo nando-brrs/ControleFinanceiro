@@ -11,8 +11,8 @@ namespace ControleFinanceiro.Business.Models
         public bool? Pago { get; set; }
         public bool? Recorrente { get; set; }
         public TipoLancamento TipoLancamento { get; set; }
-        public Guid IdSubCategoria { get; set; }
-        public Guid IdUsuario { get; set; }
+        public Guid Id_SubCategoria { get; set; }
+        public Guid Id_Usuario { get; set; }
         /*EF Relations*/
         public SubCategoria SubCategoria { get; set; }
         public Usuario Usuario { get; set; }

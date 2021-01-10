@@ -1,5 +1,5 @@
-﻿using ControleFinanceiro.Business.Models;
-using ControleFinanceiro.Business.Repository;
+﻿using ControleFinanceiro.Business.Interfaces;
+using ControleFinanceiro.Business.Models;
 using ControleFinanceiro.Data.Context;
 
 namespace ControleFinanceiro.Data.Repository

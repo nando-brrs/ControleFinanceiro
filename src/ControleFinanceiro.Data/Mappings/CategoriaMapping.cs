@@ -17,7 +17,9 @@ namespace ControleFinanceiro.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            builder.Property(p => p.TipoLancamento);
+
+            builder.Property(p => p.TipoLancamento)
+                .HasColumnName("ID_TIPOLANCAMENTO");
 
             builder.Property(p => p.Ativo);
 

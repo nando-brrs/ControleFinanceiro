@@ -6,7 +6,7 @@ namespace ControleFinanceiro.Business.Models
     public class SubCategoria : Entity
     {
         public string Descricao { get; set; }
-        public Guid IdCategoria{ get; set; }
+        public Guid Id_Categoria{ get; set; }
         public bool Ativo { get; set; }
         /*EF relations*/
         public Categoria Categoria { get; set; }

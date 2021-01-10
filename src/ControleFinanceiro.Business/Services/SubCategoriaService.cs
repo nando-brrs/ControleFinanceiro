@@ -1,7 +1,6 @@
 ﻿using ControleFinanceiro.Business.Interfaces;
 using ControleFinanceiro.Business.Models;
 using ControleFinanceiro.Business.Models.Validations;
-using ControleFinanceiro.Business.Repository;
 using System;
 using System.Threading.Tasks;
 

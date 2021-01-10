@@ -16,7 +16,7 @@ namespace ControleFinanceiro.Data.Mappings
 
             builder.HasOne(s => s.Categoria)
                 .WithMany(c => c.SubCategorias)
-                .HasForeignKey(s => s.IdCategoria);
+                .HasForeignKey(s => s.Id_Categoria);
 
             builder.Property(p => p.Ativo);
 
