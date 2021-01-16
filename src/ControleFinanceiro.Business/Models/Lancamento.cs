@@ -14,7 +14,7 @@ namespace ControleFinanceiro.Business.Models
         public Guid Id_SubCategoria { get; set; }
         public Guid Id_Usuario { get; set; }
         /*EF Relations*/
-        public SubCategoria SubCategoria { get; set; }
-        public Usuario Usuario { get; set; }
+        virtual public SubCategoria SubCategoria { get; set; }
+        virtual public Usuario Usuario { get; set; }
     }
 }

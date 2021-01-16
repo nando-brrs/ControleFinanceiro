@@ -18,7 +18,8 @@ namespace ControleFinanceiro.Api.Controllers
         private readonly IMapper _mapper;
         public LancamentosController(ILancamentoRepository lancamentoRepository,
             ILancamentoService lancamentoService,
-            IMapper mapper)
+            IMapper mapper,
+            INotificador notificador) : base(notificador)
         {
             _lancamentoRepository = lancamentoRepository;
             _lancamentoService = lancamentoService;
@@ -43,14 +44,12 @@ namespace ControleFinanceiro.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<LancamentoViewModel>> Adicionar(LancamentoViewModel lancamentoViewModel)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var lancamento = _mapper.Map<Lancamento>(lancamentoViewModel);
-            var result = await _lancamentoService.Add(lancamento);
+            await _lancamentoService.Add(lancamento);
 
-            if (!result) return BadRequest();
-
-            return Ok(lancamento);
+            return CustomResponse(lancamentoViewModel);
 
 
         }
@@ -59,14 +58,12 @@ namespace ControleFinanceiro.Api.Controllers
         {
             if (id != lancamentoViewModel.Id) return BadRequest();
 
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var lancamento = _mapper.Map<Lancamento>(lancamentoViewModel);
-            var result = await _lancamentoService.Update(lancamento);
+            await _lancamentoService.Update(lancamento);
 
-            if (!result) return BadRequest();
-
-            return Ok(lancamento);
+            return CustomResponse(lancamentoViewModel);
 
 
         }
@@ -77,11 +74,9 @@ namespace ControleFinanceiro.Api.Controllers
 
             if (lancamento == null) return NotFound();
 
-            var result = await _lancamentoService.Remove(id);
+            await _lancamentoService.Remove(id);
 
-            if (!result) return BadRequest();
-
-            return Ok(lancamento);
+            return CustomResponse(lancamento);
 
         }
         public async Task<LancamentoViewModel> ObterLancamento(Guid id)

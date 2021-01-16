@@ -36,6 +36,13 @@ namespace ControleFinanceiro.Api
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+
+            //remove configuração de validação da modelstate padrão, para customizarmos 
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.ResolveDependencies();
         }
 
