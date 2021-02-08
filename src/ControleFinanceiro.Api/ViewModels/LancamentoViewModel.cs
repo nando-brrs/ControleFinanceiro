@@ -16,8 +16,8 @@ namespace ControleFinanceiro.Api.ViewModels
         public bool? Pago { get; set; }
         public bool? Recorrente { get; set; }
         public TipoLancamentoViewModel TipoLancamento { get; set; }
-        public Guid IdSubCategoria { get; set; }
-        public Guid IdUsuario { get; set; }
+        public Guid Id_SubCategoria { get; set; }
+        public Guid Id_Usuario { get; set; }
         /*EF Relations*/
         public SubCategoriaViewModel SubCategoria { get; set; }
         public UsuarioViewModel Usuario { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ControleFinanceiro.Api.ViewModels
 {
@@ -19,7 +20,7 @@ namespace ControleFinanceiro.Api.ViewModels
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail em formato inválido.")]
         public string Email { get; set; }
         public bool Ativo { get; set; }
-
+        [JsonIgnore]
         public IEnumerable<LancamentoViewModel> Lancamentos { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ControleFinanceiro.Business.Models
 {
@@ -9,7 +10,7 @@ namespace ControleFinanceiro.Business.Models
         public Guid Id_Categoria{ get; set; }
         public bool Ativo { get; set; }
         /*EF relations*/
-        public Categoria Categoria { get; set; }
-        public IEnumerable<Lancamento> Lancamentos { get; set; }
+        virtual public Categoria Categoria { get; set; }
+        virtual public IEnumerable<Lancamento> Lancamentos { get; set; }
     }
 }

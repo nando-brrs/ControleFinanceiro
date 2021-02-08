@@ -28,7 +28,8 @@ namespace ControleFinanceiro.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<LancamentoViewModel>> ObterTodos()
         {
-            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>( await _lancamentoRepository.GetAll());
+
+            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(await _lancamentoRepository.GetAll());
 
             return lancamentos;
         }

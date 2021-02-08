@@ -11,7 +11,8 @@ namespace ControleFinanceiro.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Valor)
-                .IsRequired();
+                .IsRequired()
+                .HasColumnType("decimal(19,2)");
 
             builder.Property(p => p.Data)
                 .IsRequired();
@@ -32,6 +33,7 @@ namespace ControleFinanceiro.Data.Mappings
             builder.HasOne(p => p.SubCategoria)
                 .WithMany(s => s.Lancamentos)
                 .HasForeignKey(l => l.Id_SubCategoria);
+
 
             builder.HasOne(s => s.Usuario)
                 .WithMany(c => c.Lancamentos)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ControleFinanceiro.Business.Models
 {
@@ -8,6 +9,6 @@ namespace ControleFinanceiro.Business.Models
         public bool Ativo { get; set; }
         public TipoLancamento TipoLancamento { get; set; }
         /*EF relations*/
-        public IEnumerable<SubCategoria> SubCategorias { get; set; }
+        virtual public IEnumerable<SubCategoria> SubCategorias { get; set; }
     }
 }
