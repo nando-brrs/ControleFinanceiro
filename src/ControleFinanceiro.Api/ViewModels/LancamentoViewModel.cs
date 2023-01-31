@@ -20,6 +20,6 @@ namespace ControleFinanceiro.Api.ViewModels
         public Guid Id_Usuario { get; set; }
         /*EF Relations*/
         public SubCategoriaViewModel SubCategoria { get; set; }
-        public UsuarioViewModel Usuario { get; set; }
+        public UsuarioLoginViewModel Usuario { get; set; }
     }
 }

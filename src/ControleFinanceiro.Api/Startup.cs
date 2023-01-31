@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ControleFinanceiro.Api
 {
@@ -35,7 +36,12 @@ namespace ControleFinanceiro.Api
             });
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(
+                    options =>
+                      options.SerializerSettings.ReferenceLoopHandling =
+                        ReferenceLoopHandling.Ignore
+                    );
 
             //remove configuração de validação da modelstate padrão, para customizarmos 
             services.Configure<ApiBehaviorOptions>(options =>

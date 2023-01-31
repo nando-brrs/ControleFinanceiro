@@ -8,7 +8,6 @@ namespace ControleFinanceiro.Business.Models
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
         public TipoLancamento TipoLancamento { get; set; }
-        /*EF relations*/
-        virtual public IEnumerable<SubCategoria> SubCategorias { get; set; }
+        public IEnumerable<SubCategoria> SubCategorias { get; set; }
     }
 }

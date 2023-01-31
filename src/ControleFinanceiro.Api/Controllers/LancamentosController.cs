@@ -25,11 +25,19 @@ namespace ControleFinanceiro.Api.Controllers
             _lancamentoService = lancamentoService;
             _mapper = mapper;
         }
+        [HttpGet("{mes:int}/{ano:int}")]
+        public async Task<IEnumerable<LancamentoViewModel>> ObterTodosPorAnoMes(int mes, int ano)
+        {
+
+            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(await _lancamentoRepository.ObtemPorMesAno(mes, ano)).OrderBy(x => x.Data);
+
+            return lancamentos;
+        }
         [HttpGet]
         public async Task<IEnumerable<LancamentoViewModel>> ObterTodos()
         {
 
-            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(await _lancamentoRepository.GetAll());
+            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(await _lancamentoRepository.GetAll()).OrderBy(x => x.Data);
 
             return lancamentos;
         }

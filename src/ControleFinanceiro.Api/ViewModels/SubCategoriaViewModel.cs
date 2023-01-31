@@ -15,7 +15,5 @@ namespace ControleFinanceiro.Api.ViewModels
         [Required(ErrorMessage = "O Campo {0} é obrigatorio")]
         public bool Ativo { get; set; }
         public CategoriaViewModel Categoria { get; set; }
-        [JsonIgnore]
-        public IEnumerable<LancamentoViewModel> Lancamentos { get; set; }
     }
 }

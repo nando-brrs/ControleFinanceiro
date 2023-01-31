@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace ControleFinanceiro.Api.ViewModels
 {
-    public class UsuarioViewModel
+    public class UsuarioLoginViewModel
     {
         [Required(ErrorMessage = "O Campo {0} é obrigatorio")]
         [StringLength(150, ErrorMessage = "O Campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 10)]
