@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using ControleFinanceiro.Api.ViewModels;
 using ControleFinanceiro.Business.Interfaces;
 using ControleFinanceiro.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFinanceiro.Api.Controllers
 {
+    [Authorize]
     [Route("api/lancamentos")]
     public class LancamentosController : MainController
     {
@@ -40,6 +43,44 @@ namespace ControleFinanceiro.Api.Controllers
             var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(await _lancamentoRepository.GetAll()).OrderBy(x => x.Data);
 
             return lancamentos;
+        }
+        [HttpPost]
+        [Route("GetPaged")]
+        public IActionResult GetPaged([FromBody] LancamentoFiltroViewModel lancamentoFiltroViewModel)
+        {
+
+            List<Expression<Func<Lancamento, bool>>> where = new List<Expression<Func<Lancamento, bool>>>();
+
+            Expression<Func<Lancamento, object>> orderBy = null;
+
+            if (!string.IsNullOrEmpty(lancamentoFiltroViewModel.Descricao))
+                where.Add(m => m.Descricao.Contains(lancamentoFiltroViewModel.Descricao));
+
+            if (lancamentoFiltroViewModel.Data != null)
+                where.Add(m => m.Data == lancamentoFiltroViewModel.Data);
+
+            if (lancamentoFiltroViewModel.DataVencimento != null)
+                where.Add(m => m.DataVencimento ==  lancamentoFiltroViewModel.DataVencimento);
+
+
+            if (lancamentoFiltroViewModel.OrderBy == "Data")
+                orderBy = c => c.Data;
+
+            var result = _lancamentoRepository.GetPaged(lancamentoFiltroViewModel.PageIndex,
+                                                    lancamentoFiltroViewModel.PageSize,
+                                                    where,
+                                                    orderBy,
+                                                    lancamentoFiltroViewModel.Ascending);
+
+            var lancamentos = _mapper.Map<IEnumerable<LancamentoViewModel>>(result.Item2);
+
+            return Ok(new
+            {
+                Result = lancamentos,
+                lancamentoFiltroViewModel.PageIndex,
+                lancamentoFiltroViewModel.PageSize,
+                Total = result.Item1
+            });
         }
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<LancamentoViewModel>> ObterPorId(Guid id)

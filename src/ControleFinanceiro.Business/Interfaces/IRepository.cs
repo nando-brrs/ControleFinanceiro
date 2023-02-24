@@ -8,7 +8,7 @@ namespace ControleFinanceiro.Business.Interfaces
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
-        Task<IEnumerable<TEntity>> GetPaged(int pageIndex, int pageSize, int totalCount, IList<Expression<Func<TEntity, bool>>> wheres = null, Expression<Func<TEntity, object>> orderBy = null, bool ascending = true);
+        Tuple<int, IEnumerable<TEntity>> GetPaged(int pageIndex, int pageSize, IList<Expression<Func<TEntity, bool>>> wheres = null, Expression<Func<TEntity, object>> orderBy = null, bool ascending = true);
         Task Add(TEntity entity);
         Task<TEntity> GetById(Guid id);
         Task<TEntity> GetById(long id);

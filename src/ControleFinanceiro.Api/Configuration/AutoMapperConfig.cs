@@ -12,6 +12,7 @@ namespace ControleFinanceiro.Api.Configuration
             CreateMap<Categoria, CategoriaViewModel>().ReverseMap();
             CreateMap<SubCategoria, SubCategoriaViewModel>().ReverseMap();
             CreateMap<Usuario, UsuarioLoginViewModel>().ReverseMap();
+            CreateMap<Usuario, LoginViewModel>().ReverseMap();
         }
     }
 }

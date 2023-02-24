@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ControleFinanceiro.Api
 {
@@ -30,9 +33,32 @@ namespace ControleFinanceiro.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationConfig = Configuration.Get<ApplicationConfig>();
             services.AddDbContext<ControleFinanceiroContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                options.UseSqlServer(applicationConfig.ConnectionStrings.DefaultConnection);
+            });
+
+            services.Configure<ApplicationConfig>(Configuration);
+
+
+            var key = Encoding.ASCII.GetBytes(applicationConfig.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -64,6 +90,7 @@ namespace ControleFinanceiro.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

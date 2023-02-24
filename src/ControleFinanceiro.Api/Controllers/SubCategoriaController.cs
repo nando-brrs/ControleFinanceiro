@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ControleFinanceiro.Api.ViewModels;
 using ControleFinanceiro.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFinanceiro.Api.Controllers
 {
+    [Authorize]
     [Route("api/SubCategorias")]
     public class SubCategoriaController : Controller
     {

@@ -22,7 +22,7 @@ namespace ControleFinanceiro.Data.Repository
             DbSet = db.Set<TEntity>();
             EntitySet = DbSet.AsQueryable<TEntity>();
         }
-        public async Task<IEnumerable<TEntity>> GetPaged(int pageIndex, int pageSize, int totalCount, IList<Expression<Func<TEntity, bool>>> wheres = null, Expression<Func<TEntity, object>> orderBy = null, bool ascending = true)
+        public Tuple<int, IEnumerable<TEntity>> GetPaged(int pageIndex, int pageSize, IList<Expression<Func<TEntity, bool>>> wheres = null, Expression<Func<TEntity, object>> orderBy = null, bool ascending = true)
         {
             var result = EntitySet;
 
@@ -36,16 +36,20 @@ namespace ControleFinanceiro.Data.Repository
                 result = ascending ? result.OrderBy(orderBy) : result.OrderByDescending(orderBy);
             }
 
-            totalCount = result.Count();
+            var intTotalRegisters = result.Count();
 
             if (pageSize <= 0 || pageIndex <= 0)
             {
-                return result;
+                return new Tuple<int, IEnumerable<TEntity>>(intTotalRegisters, result.ToList());
             }
 
-            result = result.Skip(pageSize * pageIndex).Take(pageSize);
 
-            return result;
+            var take = pageSize;
+            var skip = pageSize * (pageIndex - 1);
+
+            result = result.Skip(skip).Take(take);
+
+            return new Tuple<int, IEnumerable<TEntity>>(intTotalRegisters, result.ToList());
         }
         public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
         {
